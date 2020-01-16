@@ -1,13 +1,15 @@
 # SmartOptions
 
-SmartOptions allows you to define options classes which have default and required options
+[![CircleCI](https://circleci.com/gh/yukas/smart_options/tree/master.svg?style=svg)](https://circleci.com/gh/yukas/smart_options/tree/master)
+
+SmartOptions allows to define options classes which have default and required options
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
 ```ruby
-gem 'smart_options'
+gem "smart_options"
 ```
 
 And then execute:
@@ -20,13 +22,13 @@ Or install it yourself as:
 
 ## Usage
 
-Inherit from SmartOptions class to get all functionality:
+Inherit from SmartOptions::Options class to get all functionality:
 
 ```ruby
-class UserOptions < SmartOptions
-    option :first_name, required: true
-    option :last_name, required: true
-    option :admin, defaut: false
+class UserOptions < SmartOptions::Options
+  option :first_name, required: true
+  option :last_name, required: true
+  option :admin, defaut: false
 end
 ```
 
@@ -39,7 +41,14 @@ options.first_name # => "Foo"
 options.last_name # => "Bar"
 options.admin # => false
 
-options.middle_name # => raises exception listing wrong options
+options = UserOptions.new(last_name: "Bar") # => raises exception listing required options
+
+options = UserOptions.new(
+  first_name: "Foo",
+  last_name: "Bar",
+  middle_name: "Baz"
+) # => raises exception listing wrong options
+
 ```
 
 ## Development
@@ -50,7 +59,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/smart_options.
+Bug reports and pull requests are welcome on GitHub at https://github.com/yukas/smart_options.
 
 ## License
 
